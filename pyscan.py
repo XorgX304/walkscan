@@ -27,6 +27,7 @@ def banner():
                                                       
 github: github.com/gDutr4
 email: devgabrieldutra@gmail.com
+Exemplo: python pyscan.py google.com
 
     ''')
 
