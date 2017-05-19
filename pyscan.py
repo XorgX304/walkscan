@@ -4,14 +4,17 @@ import os
 from sys import platform
 from os import system
 
-def sistema():
+
+def start_system():
 
     if platform.startswith('linux'):
         system("clear")
     else:
         system("cls")
 
-servicos = {
+
+def all_services():
+	return {
     "21": "FTP",
     "22": "SSH",
     "23": "TelNet",
@@ -33,8 +36,8 @@ servicos = {
     "2082": "Cpanel",
     "3306": "MySql",
     "5432": "PostgreSQL"
+			} 
 
-    }
 
 def banner():
     print('''
@@ -51,43 +54,58 @@ def banner():
 
 github: github.com/gDutr4
 email: devgabrieldutra@gmail.com
-Exemplo: python pyscan.py google.com
+
+github: github.com/JulioOliveiraCosta
 
     ''')
 
-'''
-def help():
-    if(argv[1] == "-h"):
-        print ("#=========================================#")
-        print ("#  Exemplo: python pyscan.py google.com   #")
-        print ("#=========================================#")
-'''
 
-def main():
-    
-    host = sys.argv[1];
-
-    ports = [21, 22, 23, 25, 26, 53, 57, 80, 81, 88,
+def all_ports():
+	return [21, 22, 23, 25, 26, 53, 57, 80, 81, 88,
             115, 118, 119, 135, 137, 443, 445,
             514, 901, 1521, 2082, 3306, 5435]
 
-    for port in ports:
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.settimeout(0.05)
-        r = client.connect_ex((host, port))
 
-        if r == 0:
-            if str(port) in servicos:
-                print("{}({}) is OPEN MOTHERFUCK!".format(str(port), servicos[str(port)]))
+def main():
+	try:
+		host = sys.argv[1];
 
-#chamando as funcoes do script
-sistema()
-banner()
-main()
+		services = all_services()
 
-print ("\n\n")
-print ("#======================#")
-print ("#                      #")
-print ("#     Finish scan      #")
-print ("#                      #")
-print ("#======================#")
+		ports = all_ports()
+		
+		count_open = 0
+
+		for port in ports:
+			client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			client.settimeout(0.05)
+
+			if client.connect_ex((host, port)) == 0:
+				if str(port) in services:
+					print("{}({}) is OPEN MOTHERFUCK!".format(str(port), services[str(port)]))
+					
+					count_open += 1
+		
+		if count_open == 0:
+			print("Nothing OPEN MOTHERFUCK!")
+	
+	except IndexError:
+		print("You need at least one argument MOTHERFUCK!")
+
+		
+def finish_scan():
+	print ("\n\n")
+	print ("#======================#")
+	print ("#                      #")
+	print ("#     Finish scan      #")
+	print ("#                      #")
+	print ("#======================#")
+
+
+
+if __name__ == '__main__':
+	start_system()
+	banner()
+	main()
+	finish_scan()
+	
