@@ -52,10 +52,10 @@ def banner():
 |/          \_/   \_______)(_______/|/     \||/    )_)
 
 
+github: github.com/JulioOliveiraCosta
 github: github.com/gDutr4
 email: devgabrieldutra@gmail.com
 
-github: github.com/JulioOliveiraCosta
 
     ''')
 
