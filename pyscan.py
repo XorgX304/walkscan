@@ -53,7 +53,7 @@ def banner():
 
 
 github: github.com/JulioOliveiraCosta
-github: github.com/gDutr4
+github: github.com/mr0mx
 email: devgabrieldutra@gmail.com
 
 
