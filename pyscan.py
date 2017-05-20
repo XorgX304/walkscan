@@ -96,9 +96,12 @@ def main():
 		host = sys.argv[1];
 		open_ports = attempt_connections(host)
 		print_results(host, open_ports)
-	
+
 	except IndexError:
 		print("You need at least one argument MOTHERFUCK!")
+	except socket.gaierror:
+		print("You need to give proper hostname MOTHERFUCK!")
+
 
 		
 def finish_scan():
