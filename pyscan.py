@@ -44,7 +44,7 @@ def all_services():
 
 def banner():
     print('''
-
+===========================================================
  _______           _______  _______  _______  _
 (  ____ )|\     /|(  ____ \(  ____ \(  ___  )( (    /|
 | (    )|( \   / )| (    \/| (    \/| (   ) ||  \  ( |
@@ -56,11 +56,11 @@ def banner():
 
 
 github: github.com/JulioOliveiraCosta
-github: github.com/mr0mx
+github: github.com/gDutr4
 github: github.com/fbleite
 email: devgabrieldutra@gmail.com
 
-
+===========================================================
     ''')
 
 def attempt_connections(host):
