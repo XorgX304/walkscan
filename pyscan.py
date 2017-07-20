@@ -56,7 +56,7 @@ def banner():
 
 
 github: github.com/JulioOliveiraCosta
-github: github.com/b1tt
+github: github.com/zfx0x47
 github: github.com/fbleite
 email: devgabrieldutra@gmail.com
 
