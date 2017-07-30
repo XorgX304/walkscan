@@ -2,16 +2,17 @@ import socket
 import sys
 import argparse
 from sys import platform
-from os import system
+import os
 
 
 def start_system():
 
     if platform.startswith('linux') or platform.startswith('darwin'):
-        system("clear")
+       os.system("clear")
+       return
     else:
-        system("cls")
-
+        os.system("cls")
+    
 def all_services():
 	return {
 		21: "FTP",
@@ -69,15 +70,11 @@ def attempt_connections(host):
 	for port in all_services().keys():
 		client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		client.settimeout(0.05)
-
+                host = socket.gethostbyname(host)
 		if client.connect_ex((host, port)) == 0:
 			open_ports.append(port)
-
-	return open_ports
-
-
-def resolve_name(host):
-	return socket.gethostbyname(host)
+                client.close
+	return open_ports, host
 
 
 def print_results(host, open_ports):
@@ -88,34 +85,37 @@ def print_results(host, open_ports):
 	#print("Target MOTHERFUCKING host is {}".format(host))
 	
 	print("------------------------------------------------------------")
-	print("Address: {}".format(resolve_name(host)))
+	print("Address: {}".format(attempt_connections(host)[1]))
 	print("Host: {}".format(host))
 	print("------------------------------------------------------------\n\n")
 
 	if len(open_ports) == 0:
-		print("Nothing OPEN MOTHERFUCK!")
+		print("Nothing OPEN")
 
 	else:
 		for port in open_ports:
-			print("{}({}) is OPEN MOTHERFUCK!".format(port, all_services()[port]))
+			print("{}\t({})\tis OPEN".format(port, all_services()[port]))
 
 def main():
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--host", action="store", dest="host", help="Informe o host")
+	parser.add_argument('--host', action='store', dest='host', help='Informe o host')
+        parser.add_argument('-w', '--write', help='Save the output results.', action='store', metavar='File')
+        args = parser.parse_args()
 
-	args = parser.parse_args()
+        if args.write is not None:
+            sys.stdout = open(args.write, 'w')
 
-	try:
-		host = args.host
-		open_ports = attempt_connections(host)
-		print_results(host, open_ports)
-
-
-	except IndexError:
-		print("You need at least one argument MOTHERFUCK!")
-	except socket.gaierror:
-		print("You need to give proper hostname MOTHERFUCK!")
-
+        if args.host:                 
+            try:
+                host = args.host
+	        open_ports = attempt_connections(host)[0]
+	        print_results(host, open_ports)
+            except socket.gaierror:
+                print("You need to give proper hostname")
+        else:
+            parser.print_help()
+            sys.exit(1)
+        
 
 if __name__ == '__main__':
 	start_system()
