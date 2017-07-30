@@ -1,11 +1,14 @@
 **pyscan** A command line tool to port scan!
 ===================
-**usage:**
+----------
+<i class="icon-puzzle"></i> **Usage**
+-------------
+Optional Arguments:
 
-usage: pyscan.py [-h] [--host HOST] [-w File]
+	$ pyscan.py [--h HELP] [-h HOST] [-w WRITE] 
+	
+	
+	-h,HELP, --help 	Show this help message and exit
+	-h HOST, --host   	Enter host for port scan
+	-w WRITE, --write 	Save this result on file
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --host HOST           Informe o host
-  -w File, --write File
-                        Save the output results.
