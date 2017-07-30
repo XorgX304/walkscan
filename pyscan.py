@@ -1,5 +1,6 @@
 import socket
 import sys
+import argparse
 from sys import platform
 from os import system
 
@@ -10,7 +11,6 @@ def start_system():
         system("clear")
     else:
         system("cls")
-
 
 def all_services():
 	return {
@@ -44,7 +44,7 @@ def all_services():
 
 def banner():
     print('''
-===========================================================
+-----------------------------------------------------------
  _______           _______  _______  _______  _
 (  ____ )|\     /|(  ____ \(  ____ \(  ___  )( (    /|
 | (    )|( \   / )| (    \/| (    \/| (   ) ||  \  ( |
@@ -54,13 +54,10 @@ def banner():
 | )         | |   /\____) || (____/\| )   ( || )  \  |
 |/          \_/   \_______)(_______/|/     \||/    )_)
 
-
-github: github.com/JulioOliveiraCosta
+Author: Gabriel Dutra(T9xx)
 github: github.com/T9xx
-github: github.com/fbleite
 email: devgabrieldutra@gmail.com
-
-===========================================================
+------------------------------------------------------------
     ''')
 
 def attempt_connections(host):
@@ -79,23 +76,40 @@ def attempt_connections(host):
 	return open_ports
 
 
+def resolve_name(host):
+	return socket.gethostbyname(host)
+
+
 def print_results(host, open_ports):
 	"""Prints the results the results based on the open ports
 	:param host: the connection target host
 	:param open_ports: a list containing the open ports(ports must be int)
 	"""
-	print("Target MOTHERFUCKING host is {}".format(host))
+	#print("Target MOTHERFUCKING host is {}".format(host))
+	
+	print("------------------------------------------------------------")
+	print("Address: {}".format(resolve_name(host)))
+	print("Host: {}".format(host))
+	print("------------------------------------------------------------\n\n")
+
 	if len(open_ports) == 0:
 		print("Nothing OPEN MOTHERFUCK!")
+
 	else:
 		for port in open_ports:
 			print("{}({}) is OPEN MOTHERFUCK!".format(port, all_services()[port]))
 
 def main():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("--host", action="store", dest="host", help="Informe o host")
+
+	args = parser.parse_args()
+
 	try:
-		host = sys.argv[1];
+		host = args.host
 		open_ports = attempt_connections(host)
 		print_results(host, open_ports)
+
 
 	except IndexError:
 		print("You need at least one argument MOTHERFUCK!")
@@ -103,20 +117,7 @@ def main():
 		print("You need to give proper hostname MOTHERFUCK!")
 
 
-		
-def finish_scan():
-	print ("\n\n")
-	print ("#======================#")
-	print ("#                      #")
-	print ("#     Finish scan      #")
-	print ("#                      #")
-	print ("#======================#")
-
-
-
 if __name__ == '__main__':
 	start_system()
 	banner()
 	main()
-	finish_scan()
-	
