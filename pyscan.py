@@ -13,7 +13,7 @@ def start_system():
         return
     else:
         os.system("cls")
-    
+
 def all_services():
     return {
 		21: "FTP",
@@ -58,7 +58,7 @@ def banner():
 
 Author: Gabriel Dutra(T9xx)
 github: github.com/T9xx
-email: devgabrieldutra@gmail.com
+Telegram: tninex
 ------------------------------------------------------------
     ''')
 
@@ -89,7 +89,7 @@ def print_results(host, open_ports):
     :param host: the connection target host
     :param open_ports: a list containing the open ports(ports must be int)
     """
-	
+
     print("------------------------------------------------------------")
     print("Address: {}".format(attempt_connections(host)[1]))
     print("Host: {}".format(host))
@@ -125,7 +125,7 @@ def main():
     else:
         parser.print_help()
         sys.exit(1)
-        
+
 
 if __name__ == '__main__':
     start_system()
