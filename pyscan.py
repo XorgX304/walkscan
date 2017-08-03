@@ -16,11 +16,15 @@ def start_system():
 
 def all_services():
     return {
+    	20: "FTP-data",
 		21: "FTP",
 		22: "SSH",
 		23: "TelNet",
 		25: "SMTP",
 		26: "RSFTP",
+		37: "Time"
+		39: "RLP"
+		43: "whois"
 		53: "DNS",
 		57: "MTP",
 		67: "DHCP",
@@ -28,6 +32,9 @@ def all_services():
 		80: "HTTP",
 		81: "SKYPE",
 		88: "Kerberos",
+		95: "supdup"
+		107: "rtelnet"
+		111: "sunrpc"
 		115: "SFTP",
 		118: "SQL services",
 		119: "NNTP",
@@ -37,10 +44,19 @@ def all_services():
 		445: "microsoftDS",
 		514: "SysLog",
 		901: "Samba",
+		1194: "OpenVPN"
+		1433: "ms-sql-s"
 		1521: "Oracle DB",
+		2000: "cisco-sccp"
+		2010: "pipe-server"
+		2049: "NFS"
 		2082: "Cpanel",
-		3306: "MySql",
+		3306: "MySQL",
+		5222: "xmpp-client"
+		5269: "xmpp-server"
 		5432: "PostgreSQL"
+		10050: "zabbix-agent"
+		10051: "zabbix-trapper"
 	}
 
 
