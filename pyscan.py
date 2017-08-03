@@ -11,8 +11,10 @@ def start_system():
     if platform.startswith('linux') or platform.startswith('darwin'):
         os.system("clear")
         return
+
     else:
         os.system("cls")
+        sys.exit(1)
 
 def all_services():
     return {
