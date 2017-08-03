@@ -68,12 +68,16 @@ def attempt_connections(host):
     :param host the connection target host
     """
 
-    open_ports =[]
-    t1=time.time()
+    open_ports = []
+    t1 = time.time()
+
     for port in all_services().keys():
+
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.settimeout(0.05)
+
         host = socket.gethostbyname(host)
+
         if client.connect_ex((host, port)) == 0:
             open_ports.append(port)
             client.close
@@ -90,9 +94,10 @@ def print_results(host, open_ports):
     :param open_ports: a list containing the open ports(ports must be int)
     """
 
+
     print("------------------------------------------------------------")
     print("Address: {}".format(attempt_connections(host)[1]))
-    print("Host: {}".format(host))
+    print("Host: {0} \t {1}".format(host, socket.gethostbyaddr(host)[0]))
     print("------------------------------------------------------------\n\n")
 
     if len(open_ports) == 0:
