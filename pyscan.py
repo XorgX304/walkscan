@@ -1,65 +1,40 @@
 #!/usr/bin/python
-import socket
-import sys
-import argparse
-from sys import platform
-import os
-import time
+
+
+from socket import (socket, gethostbyname, AF_INET,
+                    SOCK_STREAM, gaierror, gethostbyaddr)
+from argparse import ArgumentParser
+from sys import platform, exit, stdout
+from os import system
+from time import time
+
 
 def start_system():
 
-    if platform.startswith('linux') or platform.startswith('darwin'):
-        os.system("clear")
+    if platform in ['linux2', 'darwin', 'linux']:
+        system("clear")
         return
 
     else:
-        os.system("cls")
-        sys.exit(1)
+        system("cls")
+        exit(1)
+
 
 def all_services():
     return {
-    	        20: "FTP-data",
-		21: "FTP",
-		22: "SSH",
-		23: "TelNet",
-		25: "SMTP",
-		26: "RSFTP",
-		37: "Time",
-		39: "RLP",
-		43: "whois",
-		53: "DNS",
-		57: "MTP",
-		67: "DHCP",
-		68: "DHCP",
-		80: "HTTP",
-		81: "SKYPE",
-		88: "Kerberos",
-		95: "supdup",
-		107: "rtelnet",
-		111: "sunrpc",
-		115: "SFTP",
-		118: "SQL services",
-		119: "NNTP",
-		135: "RPC",
-		137: "NetBios",
-		443: "HTTPS",
-		445: "microsoftDS",
-		514: "SysLog",
-		901: "Samba",
-		1194: "OpenVPN",
-		1433: "ms-sql-s",
-		1521: "Oracle DB",
-		2000: "cisco-sccp",
-		2010: "pipe-server",
-		2049: "NFS",
-		2082: "Cpanel",
-		3306: "MySQL",
-		5222: "xmpp-client",
-		5269: "xmpp-server",
-		5432: "PostgreSQL",
-		10050: "zabbix-agent",
-		10051: "zabbix-trapper"
-	}
+            20: "FTP-data", 21: "FTP",	22: "SSH", 23: "TelNet",
+	    25: "SMTP",	26: "RSFTP", 37: "Time", 39: "RLP",
+            43: "whois", 53: "DNS", 57: "MTP", 67: "DHCP",
+            68: "DHCP",	80: "HTTP", 81: "SKYPE", 88: "Kerberos",
+	    95: "supdup", 107: "rtelnet", 111: "sunrpc",
+            115: "SFTP", 118: "SQL services", 119: "NNTP",
+	    135: "RPC",	137: "NetBios",	443: "HTTPS", 445: "microsoftDS",
+	    514: "SysLog", 901: "Samba", 1194: "OpenVPN",
+	    1433: "ms-sql-s", 1521: "Oracle DB", 2000: "cisco-sccp",
+	    2010: "pipe-server", 2049: "NFS", 2082: "Cpanel",
+	    3306: "MySQL", 5222: "xmpp-client",	5269: "xmpp-server",
+	    5432: "PostgreSQL",	10050: "zabbix-agent",10051: "zabbix-trapper"
+	   }
 
 
 def banner():
@@ -80,6 +55,7 @@ Telegram: tninex
 ------------------------------------------------------------
     ''')
 
+
 def attempt_connections(host):
 
     """Attempts to connect to the ports pre defined in the all_services function
@@ -87,19 +63,19 @@ def attempt_connections(host):
     """
 
     open_ports = []
-    t1 = time.time()
+    t1 = time()
 
     for port in all_services().keys():
 
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client = socket(AF_INET, SOCK_STREAM)
         client.settimeout(0.05)
 
-        host = socket.gethostbyname(host)
+        host = gethostbyname(host)
 
         if client.connect_ex((host, port)) == 0:
             open_ports.append(port)
             client.close
-    t2 = time.time()
+    t2 = time()
     total_time = "\nScanned in {:.2f} seconds".format(t2-t1)
 
     return open_ports, host, total_time
@@ -115,7 +91,7 @@ def print_results(host, open_ports):
 
     print("------------------------------------------------------------")
     print("Address: {}".format(attempt_connections(host)[1]))
-    print("Host: {0} \t {1}".format(host, socket.gethostbyaddr(host)[0]))
+    print("Host: {0} \t {1}".format(host, gethostbyaddr(host)[0]))
     print("------------------------------------------------------------\n\n")
 
     if len(open_ports) == 0:
@@ -128,14 +104,16 @@ def print_results(host, open_ports):
 
 def main():
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--host', action='store', dest='host', help='Informe o host')
-    parser.add_argument('-w', '--write', help='Save the output results.', action='store', metavar='File')
+    parser = ArgumentParser()
+    parser.add_argument('--host', action='store',
+                        dest='host', help='Informe o host')
+    parser.add_argument('-w', '--write', help='Save the output results.',
+                        action='store', metavar='File')
     args = parser.parse_args()
 
     if args.write is not None:
         print("Wait...\nWriting in {}".format(args.write))
-        sys.stdout = open(args.write, 'w')
+        stdout = open(args.write, 'w')
 
     if args.host:
         try:
@@ -143,11 +121,11 @@ def main():
             open_ports = attempt_connections(host)[0]
             print_results(host, open_ports)
             print(attempt_connections(host)[2])
-        except socket.gaierror:
+        except gaierror:
             print("You need to give proper hostname")
     else:
         parser.print_help()
-        sys.exit(1)
+        exit(1)
 
 
 if __name__ == '__main__':
