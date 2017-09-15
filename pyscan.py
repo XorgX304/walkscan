@@ -74,9 +74,9 @@ def banner():
 | )         | |   /\____) || (____/\| )   ( || )  \  |
 |/          \_/   \_______)(_______/|/     \||/    )_)
 
-Autor: Gabriel Dutra(T9xx)
-github: github.com/lexroot
-Telegram: tninex
+Autor: Gabriel Dutra
+github: github.com/gmdutra
+Telegram: https://t.me/gmdutra
 ------------------------------------------------------------
     ''')
 
