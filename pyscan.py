@@ -112,14 +112,7 @@ def print_results(host, open_ports):
     :param host: the connection target host
     :param open_ports: a list containing the open ports(ports must be int)
     """
-
-    ip = re.compile("\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}")
-    testIpv4Address = ip.match(host)
-    if testIpv4Address:
-        host = socket.gethostbyaddr(host)
-    else:
-        print("Invalid ip address")
-
+    
     print("------------------------------------------------------------")
     print("Address: {}".format(attempt_connections(host)[1]))
     print("Host: {0} \t {1}".format(host, socket.gethostbyname(host)[0]))
