@@ -5,6 +5,7 @@ import argparse
 from sys import platform
 import os
 import time
+import re
 
 def start_system():
 
@@ -112,10 +113,16 @@ def print_results(host, open_ports):
     :param open_ports: a list containing the open ports(ports must be int)
     """
 
+    ip = re.compile("\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}")
+    testIpv4Address = ip.match(host)
+    if testIpv4Address:
+        host = socket.gethostbyaddr(host)
+    else:
+        print("Invalid ip address")
 
     print("------------------------------------------------------------")
     print("Address: {}".format(attempt_connections(host)[1]))
-    print("Host: {0} \t {1}".format(host, socket.gethostbyaddr(host)[0]))
+    print("Host: {0} \t {1}".format(host, socket.gethostbyname(host)[0]))
     print("------------------------------------------------------------\n\n")
 
     if len(open_ports) == 0:
